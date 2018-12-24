@@ -57,7 +57,15 @@ header nav a:active{
     color:#667;
     background-color: #ec8;
 }
+header nav a.here:active,
+header nav a.here:hover,
+header nav a.here:visited,
+header nav a.here:link{
+    color:#eef;
+    background-color: #799;
+}
 article img{
     border-color:#ba9;
     outline-color: #dcb;
 }
+

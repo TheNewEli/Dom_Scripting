@@ -25,6 +25,22 @@ header {
     border-bottom-width: 0;
 }
 
+#about header {
+    background-image: url("../images/lineup.gif");
+}
+
+#photos header {
+    background-image: url("../images/basshead.gif");
+}
+
+#live header {
+    background-image: url("../images/bassist.gif");
+}
+
+#contact header {
+    background-image: url("../images/drummer.gif");
+}
+
 header nav {
     background-image: url("../images/navbar.gif");
     background-position: bottom left;
@@ -33,6 +49,7 @@ header nav {
     border-style: solid;
     border-bottom-width: 0;
     border-top-width: 0;
+    padding-left: 10%;
 }
 
 header nav ul {
@@ -67,4 +84,26 @@ article img {
     border-style: solid;
     outline-width: .1em;
     outline-style: solid;
+}
+
+#slideshow {
+    width: 150px;
+    height: 150px;
+    position: relative;
+    overflow: hidden;
+}
+
+#preview {
+    position: absolute;
+    border-width: 0;
+    outline-width: 0;
+}
+
+#frame {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 99;
+    outline-width: 0;
+    border-width: 0;
 }
