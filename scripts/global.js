@@ -1,3 +1,133 @@
+//展示缩略词
+function displayAbbreviations() {
+    if (!document.getElementsByTagName || !document.createElement || !document.createTextNode) return false;
+    var abbreviations = document.getElementsByTagName('abbr');
+    if (abbreviations.length < 1) return false;
+    var defs = new Array();
+    for (var i = 0; i < abbreviations.length; i++) {
+        var current_abbr = abbreviations[i];
+        if (current_abbr.childNodes.length < 1) continue;
+        var definition = current_abbr.getAttribute('title');
+        var key = current_abbr.lastChild.nodeValue;
+        defs[key] = definition;
+    }
+    var dlist = document.createElement('dl');
+    for (key in defs) {
+        var definition = defs[key];
+        var dtitle = document.createElement('dt');
+        var dtitle_text = document.createTextNode(key);
+        dtitle.appendChild(dtitle_text);
+        var ddesc = document.createElement('dd');
+        var ddesc_text = document.createTextNode(definition);
+        ddesc.appendChild(ddesc_text);
+        dlist.appendChild(dtitle);
+        dlist.appendChild(ddesc);
+    }
+    if (dlist.childNodes.length < 1) return false;
+    var header = document.createElement('h3');
+    var header_text = document.createTextNode('Abbreviations');
+    header.appendChild(header_text);
+    var articles = document.getElementsByTagName('article');
+    if (articles.length < 1) return false;
+    var container = articles[0];
+    container.appendChild(header);
+    container.appendChild(dlist);
+}
+
+//高亮显示表格
+function highlightRows() {
+    if (!document.getElementsByTagName) return false;
+    var rows = document.getElementsByTagName('tr');
+    for (var i = 0; i < rows.length; i++) {
+        rows[i].oldClassName = rows[i].className;
+        rows[i].onmouseover = function () {
+            console.log('row on mouse over');
+            addClass(this, 'highlight');
+        };
+        rows[i].onmouseout = function () {
+            console.log('row on mouse out');
+            this.className = this.oldClassName;
+        }
+    }
+}
+
+//条纹显示表格
+function stripeTables() {
+    if (!document.getElementsByTagName) return false;
+    var tables = document.getElementsByTagName('table');
+    for (var i = 0; i < tables.length; i++) {
+        var odd = false;
+        var rows = tables[i].getElementsByTagName('tr');
+        for (var j = 0; j < rows.length; j++) {
+            if (odd == true) {
+                addClass(rows[j], 'odd');
+                odd = false;
+            } else {
+                odd = true;
+            }
+        }
+    }
+}
+
+addLoadEvent(highlightRows);
+addLoadEvent(stripeTables);
+addLoadEvent(displayAbbreviations);
+
+//显示图片
+function showPic(whichpic) {
+    if (!document.getElementById('placeholder')) return true;
+    var source = whichpic.getAttribute('href');
+    var placeholder = document.getElementById('placeholder');
+    placeholder.setAttribute('src', source);
+    if (!document.getElementById('description')) return false;
+    if (whichpic.getAttribute('title')) {
+        var text = whichpic.getAttribute('title');
+    } else {
+        var text = '';
+    }
+    var description = document.getElementById('description');
+    if (description.firstChild.nodeType = 3) {
+        description.firstChild.nodeValue = text;
+    }
+    return false;
+}
+
+//为图片准备位置
+function preparePlaceholder() {
+    if (!document.createElement) return false;
+    if (!document.createTextNode) return false;
+    if (!document.getElementById) return false;
+    if (!document.getElementById('imagegallery')) return false;
+    var placeholder = document.createElement('img');
+    placeholder.setAttribute('id', 'placeholder');
+    placeholder.setAttribute('src', 'images/placeholder.gif');
+    placeholder.setAttribute('alt', 'my image gallery');
+    var description = document.createElement('p');
+    var desctext = document.createTextNode('Choose an image');
+    description.appendChild(desctext);
+    var gallery = document.getElementById('imagegallery');
+    insertAfter(description, gallery);
+    insertAfter(placeholder, description);
+}
+
+//为photos页面准备图片浏览
+function prepareGallery() {
+    if (!document.getElementsByTagName) return false;
+    if (!document.getElementById) return false;
+    if (!document.getElementById('imagegallery')) return false;
+    var gallery = document.getElementById('imagegallery');
+    var links = gallery.getElementsByTagName('a');
+    for (var i = 0; i < links.length; i++) {
+        links[i].onclick = function () {
+            return showPic(this);
+        }
+    }
+}
+
+addLoadEvent(preparePlaceholder);
+addLoadEvent(prepareGallery);
+
+//about页的内部导航
 function prepareInternalnav() {
     if (!document.getElementsByTagName) return false;
     if (!document.getElementById) return false;
@@ -178,5 +308,65 @@ function addClass(element, value) {
         newClassName += " ";
         newClassName += value;
         element.className = newClassName;
+    }
+}
+
+
+//只显示section中该id的元素
+function showSection(id) {
+    var sections = document.getElementsByTagName('section');
+    for (var i = 0; i < sections.length; i++) {
+        if (sections[i].getAttribute('id') != id) {
+            sections[i].style.display = 'none';
+        } else {
+            sections[i].style.display = 'block';
+        }
+    }
+}
+
+//准备幻灯片
+function prepareSlideShow() {
+    if (!document.getElementsByTagName) return false;
+    if (!document.getElementById) return false;
+    if (!document.getElementById('intro')) return false;
+    var intro = document.getElementById('intro');
+    var slideshow = document.createElement('div');
+    slideshow.setAttribute('id', 'slideshow');
+    var preview = document.createElement('img');
+    preview.setAttribute('src', 'images/slideshow.gif');
+    preview.setAttribute('alt', 'a glimpse of what awaits you');
+    preview.setAttribute('id', 'preview');
+    slideshow.appendChild(preview);
+    insertAfter(slideshow, intro);
+
+    var frame = document.createElement('img');
+    frame.setAttribute('src', 'images/frame.gif');
+    frame.setAttribute('alt', '');
+    frame.setAttribute('id', 'frame');
+    slideshow.appendChild(frame);
+
+
+    var links = document.getElementsByTagName('a');
+    var destination;
+    for (var i = 0; i < links.length; i++) {
+        links[i].onmouseover = function () {
+            console.log('Mouse over link');
+            destination = this.getAttribute('href');
+            if (destination.indexOf('index.html') != -1) {
+                moveElement('preview', 0, 0, 5);
+            }
+            if (destination.indexOf('about.html') != -1) {
+                moveElement('preview', -150, 0, 5);
+            }
+            if (destination.indexOf('photos.html') != -1) {
+                moveElement('preview', -300, 0, 5);
+            }
+            if (destination.indexOf('live.html') != -1) {
+                moveElement('preview', -450, 0, 5);
+            }
+            if (destination.indexOf('contact.html') != -1) {
+                moveElement('preview', -600, 0, 5);
+            }
+        }
     }
 }

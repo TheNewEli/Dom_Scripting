@@ -99,6 +99,7 @@ article img {
     outline-width: 0;
 }
 
+/*幻灯片相框*/
 #frame {
     position: absolute;
     top: 0;
@@ -106,4 +107,22 @@ article img {
     z-index: 99;
     outline-width: 0;
     border-width: 0;
+}
+
+#imagegallery li{
+    display: inline;
+}
+
+td{
+    padding: .5em 3em;
+}
+
+dl{
+    overflow: hidden;
+}
+dt{
+    float: left;
+}
+dd{
+    float: left;
 }

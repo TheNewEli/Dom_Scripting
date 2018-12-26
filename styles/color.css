@@ -12,6 +12,7 @@ a:visited {
     color: #345;
     background-color: #eb6;
 }
+
 a:hover {
     color: #667;
     background-color: #fb5;
@@ -37,35 +38,58 @@ header nav {
 article {
     color: #223;
     background-color: #edc;
-    border-color:#667;
+    border-color: #667;
 }
 
 header nav ul {
     border-color: #99a;
 }
-header nav a:link,header nav a:visited{
-    color:#eef;
+
+header nav a:link, header nav a:visited {
+    color: #eef;
     background-color: transparent;
     border-color: #99a;
 }
 
-header nav a:hover{
-    color:#445;
+header nav a:hover {
+    color: #445;
     background-color: #eb6;
 }
-header nav a:active{
-    color:#667;
+
+header nav a:active {
+    color: #667;
     background-color: #ec8;
 }
+
 header nav a.here:active,
 header nav a.here:hover,
 header nav a.here:visited,
-header nav a.here:link{
-    color:#eef;
+header nav a.here:link {
+    color: #eef;
     background-color: #799;
 }
-article img{
-    border-color:#ba9;
+
+article img {
+    border-color: #ba9;
     outline-color: #dcb;
 }
 
+th {
+    color: #edc;
+    background-color: #455;
+}
+
+tr td {
+    color: #223;
+    background-color: #eb6;
+}
+
+tr.odd td{
+    color: #223;
+    background-color: #ec8;
+}
+
+tr.highlight td{
+    color: #223;
+    background-color: #cba;
+}
