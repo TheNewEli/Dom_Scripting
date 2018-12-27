@@ -69,8 +69,8 @@ function stripeTables() {
     }
 }
 
-addLoadEvent(highlightRows);
 addLoadEvent(stripeTables);
+addLoadEvent(highlightRows);
 addLoadEvent(displayAbbreviations);
 
 //显示图片
